@@ -1,3 +1,3 @@
-module github.com/proglottis/gpgme
+module github.com/mcha-forks/gpgme
 
 go 1.17

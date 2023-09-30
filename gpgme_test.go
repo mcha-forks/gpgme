@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"flag"
 	"io"
-	"io/ioutil"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -274,7 +273,7 @@ func TestContext_Verify(t *testing.T) {
 }
 
 func TestContext_Import(t *testing.T) {
-	homeDir, err := ioutil.TempDir("", "gpgme-import-test")
+	homeDir, err := os.MkdirTemp("", "gpgme-import-test")
 	checkError(t, err)
 	defer os.RemoveAll(homeDir)
 
@@ -338,7 +337,7 @@ func TestContext_Export(t *testing.T) {
 	checkError(t, err)
 
 	_, _ = data.Seek(0, 0)
-	allKeys, err := ioutil.ReadAll(data)
+	allKeys, err := io.ReadAll(data)
 	checkError(t, err)
 	if len(allKeys) < 1 {
 		t.Error("Expected exported keys, got empty buffer")
